@@ -30,4 +30,20 @@ public class DateTimeUtilities {
         }
         return loadedDate;
     }
+
+    public static LocalDate loadStartDate(String input, LocalDate endDate) throws DateTimeParsingException {
+        LocalDate loadedDate;
+        try {
+            loadedDate = LocalDate.parse(input, FORMATTER);
+
+            //SPRAWDZAMY CZY ZALADOWANA DATA JEST PRZED DATA KONCOWA
+            if (loadedDate.isAfter(endDate.minusDays(1))) {
+                throw new DateTimeParseException("Start date should be no later than end date.", input, 1);
+            }
+        } catch (DateTimeParseException dtpe) {
+            System.out.println("Blad parsowania daty");
+            throw new DateTimeParsingException(dtpe.getMessage());
+        }
+        return loadedDate;
+    }
 }
