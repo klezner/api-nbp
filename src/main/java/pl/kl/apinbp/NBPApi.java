@@ -42,7 +42,7 @@ public class NBPApi {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>(); //TODO : nie powinno zwracac pustej listy
+        throw new NoResultException("There was no result from API call.");
     }
 
     private String prepareRequestUrl(NBPApiParameters parameters) {

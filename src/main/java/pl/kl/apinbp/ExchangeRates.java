@@ -7,7 +7,7 @@ import java.util.List;
 //POJO - PLAIN OLD JAVA OBJECT
 //- PUSTY KONSTRUKTOR
 //- PRYWATNE POLA
-//-GETTERY I SETTERY
+//- GETTERY I SETTERY
 @Data
 public class ExchangeRates {
     private String table;
