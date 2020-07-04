@@ -1,6 +1,7 @@
 package pl.kl.apinbp;
 
 import lombok.extern.log4j.Log4j;
+import pl.kl.apinbp.exception.DateTimeParsingException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

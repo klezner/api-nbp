@@ -2,13 +2,16 @@ package pl.kl.apinbp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j;
+import pl.kl.apinbp.exception.NoResultException;
+import pl.kl.apinbp.model.ExchangeRates;
+import pl.kl.apinbp.model.NBPApiParameters;
+import pl.kl.apinbp.model.Rate;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 @Log4j

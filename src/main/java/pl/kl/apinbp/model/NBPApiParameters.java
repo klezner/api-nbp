@@ -1,6 +1,8 @@
-package pl.kl.apinbp;
+package pl.kl.apinbp.model;
 
 import lombok.*;
+import pl.kl.apinbp.DateTimeUtilities;
+import pl.kl.apinbp.exception.DateTimeParsingException;
 
 import java.time.LocalDate;
 

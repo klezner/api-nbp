@@ -1,4 +1,4 @@
-package pl.kl.apinbp;
+package pl.kl.apinbp.exception;
 
 public class DateTimeParsingException extends Exception {
     public DateTimeParsingException(String message) {

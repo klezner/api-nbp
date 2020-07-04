@@ -1,4 +1,4 @@
-package pl.kl.apinbp;
+package pl.kl.apinbp.model;
 
 import lombok.Data;
 

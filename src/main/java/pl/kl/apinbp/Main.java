@@ -1,6 +1,10 @@
 package pl.kl.apinbp;
 
 import lombok.extern.log4j.Log4j;
+import pl.kl.apinbp.exception.DateTimeParsingException;
+import pl.kl.apinbp.model.NBPApiParameters;
+import pl.kl.apinbp.model.NBPCurrency;
+import pl.kl.apinbp.model.Rate;
 
 import java.util.List;
 import java.util.Optional;
