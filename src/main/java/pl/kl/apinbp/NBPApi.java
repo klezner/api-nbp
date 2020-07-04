@@ -1,5 +1,6 @@
 package pl.kl.apinbp;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j;
 
 import java.io.IOException;
@@ -7,6 +8,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j
 public class NBPApi {
@@ -15,7 +18,9 @@ public class NBPApi {
             .version(HttpClient.Version.HTTP_2)
             .build();
 
-    public void requestBidAskRates(NBPApiParameters parameters) {
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public List<Rate> requestBidAskRates(NBPApiParameters parameters) {
         String requestUrl = prepareRequestUrl(parameters);
         log.info("Request Url: " + requestUrl);
 
@@ -28,13 +33,16 @@ public class NBPApi {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString()); //WYSLIJ ZAPYTANIE, SPODZIEWAMY SIE ODPOWIEDZI W POSTACI STRING(BODYHANDLERS)
 
             if (response.statusCode() == 200) {
-                log.info("Response: " + response.body());
+                String responseBody = response.body();
+                ExchangeRates exchangeRates = objectMapper.readValue(responseBody, ExchangeRates.class);
+                return exchangeRates.getRates();
             } else {
                 log.error("Error: " + response.statusCode());
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+        return new ArrayList<>(); //TODO : nie powinno zwracac pustej listy
     }
 
     private String prepareRequestUrl(NBPApiParameters parameters) {

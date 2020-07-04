@@ -2,6 +2,7 @@ package pl.kl.apinbp;
 
 import lombok.extern.log4j.Log4j;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -16,8 +17,9 @@ public class Main {
         loadAndSetCurrency(scanner, parameters);
         loadAndSetEndDate(scanner, parameters);
         loadAndSetStartDate(scanner, parameters);
-        api.requestBidAskRates(parameters);
 
+        List<Rate> rates = api.requestBidAskRates(parameters);
+        rates.forEach(log::info);
     }
 
     private static void loadAndSetEndDate(Scanner scanner, NBPApiParameters parameters) {
