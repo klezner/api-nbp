@@ -1,11 +1,14 @@
 package pl.kl.apinbp;
 
+import lombok.extern.log4j.Log4j;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@Log4j
 public class NBPApi {
     private final static String API_BID_ASK_ENDPOINT = "http://api.nbp.pl/api/exchangerates/rates/C/{currency}/{startDate}/{endDate}/?format=json";
     private final HttpClient httpClient = HttpClient.newBuilder()
@@ -14,7 +17,7 @@ public class NBPApi {
 
     public void requestBidAskRates(NBPApiParameters parameters) {
         String requestUrl = prepareRequestUrl(parameters);
-        System.out.println("Request Url: " + requestUrl); // TODO : zmienić na loggera
+        log.info("Request Url: " + requestUrl);
 
         HttpRequest request = HttpRequest.newBuilder() //STWORZ ZAPYTANIE
                 .GET()                                 //TYPU GET (pobieramy informacje)
@@ -25,9 +28,9 @@ public class NBPApi {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString()); //WYSLIJ ZAPYTANIE, SPODZIEWAMY SIE ODPOWIEDZI W POSTACI STRING(BODYHANDLERS)
 
             if (response.statusCode() == 200) {
-                System.out.println("Response: " + response.body());
+                log.info("Response: " + response.body());
             } else {
-                System.out.println("Error: " + response.statusCode());
+                log.error("Error: " + response.statusCode());
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

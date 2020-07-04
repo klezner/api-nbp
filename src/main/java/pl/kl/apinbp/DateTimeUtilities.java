@@ -1,10 +1,12 @@
 package pl.kl.apinbp;
 
+import lombok.extern.log4j.Log4j;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-// TODO : DOPISAC LOGGER ZAMIAST SOUT
+@Log4j
 public class DateTimeUtilities {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyy-MM-dd");
 
@@ -25,7 +27,7 @@ public class DateTimeUtilities {
                 throw new DateTimeParseException("End date should be no later than yesterday.", input, 1);
             }
         } catch (DateTimeParseException dtpe) {
-            System.out.println("Blad parsowania daty");
+            log.error("Parsing date error");
             throw new DateTimeParsingException(dtpe.getMessage());
         }
         return loadedDate;
@@ -41,7 +43,7 @@ public class DateTimeUtilities {
                 throw new DateTimeParseException("Start date should be no later than end date.", input, 1);
             }
         } catch (DateTimeParseException dtpe) {
-            System.out.println("Blad parsowania daty");
+            log.error("Parsing date error");
             throw new DateTimeParsingException(dtpe.getMessage());
         }
         return loadedDate;

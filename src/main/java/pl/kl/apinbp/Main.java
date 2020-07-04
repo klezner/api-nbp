@@ -1,10 +1,11 @@
 package pl.kl.apinbp;
 
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
 import java.util.Optional;
 import java.util.Scanner;
 
+@Log4j
 public class Main {
     public static void main(String[] args) {
 
@@ -21,34 +22,34 @@ public class Main {
 
     private static void loadAndSetEndDate(Scanner scanner, NBPApiParameters parameters) {
         do {
-            System.out.println("Please enter end date [yyyy-MM-dd]:");
+            log.info("Please enter end date [yyyy-MM-dd]:");
             try {
                 parameters.setEndDate(scanner.nextLine());
             } catch (DateTimeParsingException e) {
-                System.err.println("Error: Wrong date - " + e.getMessage());
+                log.error("Error: Wrong date - " + e.getMessage());
             }
         } while (parameters.getEndDate() == null);
     }
 
     private static void loadAndSetStartDate(Scanner scanner, NBPApiParameters parameters) {
         do {
-            System.out.println("Please enter start date [yyyy-MM-dd]:");
+            log.info("Please enter start date [yyyy-MM-dd]:");
             try {
                 parameters.setStartDate(scanner.nextLine());
             } catch (DateTimeParsingException e) {
-                System.err.println("Error: Wrong date - " + e.getMessage());
+                log.error("Error: Wrong date - " + e.getMessage());
             }
         } while (parameters.getStartDate() == null);
     }
 
     private static void loadAndSetCurrency(Scanner scanner, NBPApiParameters parameters) {
         do {
-            System.out.println("Please enter currency [dolar, euro, rubel]:");
+            log.info("Please enter currency [dolar, euro, rubel]:");
             Optional<NBPCurrency> optionalNBPCurrency = NBPCurrency.parse(scanner.nextLine());
             if (optionalNBPCurrency.isPresent()) {
                 parameters.setCurrency(optionalNBPCurrency.get());
             } else {
-                System.err.println("Error: Unrecognized currency.");
+                log.error("Error: Unrecognized currency.");
             }
         } while (parameters.getCurrency() == null);
     }
